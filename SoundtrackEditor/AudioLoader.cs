@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Networking;
 using System.IO;
 
 namespace SoundtrackEditor
@@ -38,7 +39,7 @@ namespace SoundtrackEditor
                     {
                         case ".WAV":
                         case ".OGG":
-                            return LoadUnityAudioClip(file);
+                            return LoadUnityAudioClip(ext.ToUpperInvariant(), file);
                         case ".MP3":
                             return LoadMp3Clip(file);
                         default:
@@ -80,14 +81,33 @@ namespace SoundtrackEditor
             return files;
         }
 
-        private static AudioClip LoadUnityAudioClip(string filePath)
+        private static AudioClip LoadUnityAudioClip(string ftype, string filePath)
         {
             try
             {
-                Utils.Log("Loading Unity clip");
+                Utils.Log("Loading Unity clip: " + filePath);
                 // Load the audio clip into memory.
+
+
+#if false
+#if false
+                filePath = filePath.Replace(@"\", "/");
+                filePath = Path.GetFileName(filePath);
+                Debug.Log("filepath.Replace:" + filePath);
+                AudioClip clip = Resources.Load(Path.GetFileNameWithoutExtension(filePath)) as AudioClip;
+                if (clip == null)
+                    Debug.Log("LoadUnityAudioclip  loading clip failed");
+#else
+
+                UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(filePath,
+                    ftype == ".WAV" ? AudioType.WAV : AudioType.OGGVORBIS);
+                AudioClip clip = DownloadHandlerAudioClip.GetContent(uwr);
+#endif
+#else
                 WWW www = new WWW("file://" + filePath);
-                AudioClip clip = UnityEngine.WWWAudioExtensions.GetAudioClip(www);
+                AudioClip clip = www.GetAudioClip();
+#endif
+
                 clip.name = Path.GetFileNameWithoutExtension(filePath);
                 Utils.Log("Clip name: " + clip.name + ", load state: " + clip.loadState);
                 return clip;
