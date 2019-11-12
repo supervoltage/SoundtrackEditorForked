@@ -50,7 +50,7 @@ namespace SoundtrackEditor
             Instance = this;
             music = MusicLogic.fetch;
 
-            //Utils.Log("# OS Version: " + Environment.OSVersion + ", Platform: " + Environment.OSVersion.Platform);
+            Utils.Log("# OS Version: " + Environment.OSVersion + ", Platform: " + Environment.OSVersion.Platform);
             //DeleteAllStock();
 
             DontDestroyOnLoad(gameObject);
@@ -164,6 +164,9 @@ namespace SoundtrackEditor
             music.audio2.clip = emptyTrack;
 
             music.constructionPlaylist.Clear();
+            // This is a workaround to prevent a NullRef upon entering the Editor
+            music.constructionPlaylist.Add(emptyTrack);
+
             music.spacePlaylist.Clear();
             music.astroComplexAmbience = emptyTrack;
             music.credits = emptyTrack;
@@ -177,7 +180,7 @@ namespace SoundtrackEditor
             music.trackingAmbience = emptyTrack;
             music.VABAmbience = emptyTrack;
         }
-
+#if false
         private void DeleteAllStock()
         {
             List<AudioClip> allTracks = new List<AudioClip>{
@@ -193,6 +196,7 @@ namespace SoundtrackEditor
                 music.trackingAmbience,
                 music.VABAmbience
             };
+            music.constructionPlaylist.Clear();
             allTracks.AddRange(music.constructionPlaylist);
             allTracks.AddRange(music.spacePlaylist);
 
@@ -204,6 +208,7 @@ namespace SoundtrackEditor
 
             //deleted = true;
         }
+#endif
 
         private bool _loading = false;
         public void Update()
@@ -228,7 +233,7 @@ namespace SoundtrackEditor
             UpdatePlaylist();
         }
 
-        #region Playback management
+#region Playback management
 
         public void UpdateCurrentTrack()
         {
@@ -240,7 +245,7 @@ namespace SoundtrackEditor
 
                 if (CurrentPlaylist != null && CurrentPlaylist.tracks.Count > 0)
                 {
-                    //Utils.Log("Loading initial track");
+                    Utils.Log("Loading initial track");
                     PlayNextTrack(CurrentPlaylist);
                 }
             }
@@ -271,9 +276,11 @@ namespace SoundtrackEditor
             if (ActivePlaylists == null || ActivePlaylists.Count == 0)
             {
                 StopPlayback();
-                Speaker.clip = null;
+
+                Speaker.clip = null;                
                 CurrentClip = null;
                 CurrentPlaylist = null;
+
                 return;
             }
 
@@ -282,7 +289,7 @@ namespace SoundtrackEditor
             if (!ActivePlaylists.Contains(CurrentPlaylist))
             {
                 CurrentPlaylist = ActivePlaylists[0];
-                //Utils.Log("Switching to playlist " + ActivePlaylists[0].name + " of " + ActivePlaylists.Count + " matching playlists.");
+                Utils.Log("Switching to playlist " + ActivePlaylists[0].name + " of " + ActivePlaylists.Count + " matching playlists.");
                 SwitchToPlaylist(ActivePlaylists[0]);
             }
         }
@@ -335,11 +342,11 @@ namespace SoundtrackEditor
                 {
                     if (p.playWhen.PrerequisitesMet())
                         validPlaylists.Add(p);
-                    /*else
-                        Utils.Log("Playlist " + p.name + " failed prereqs");*/
+                    else
+                        Utils.Log("Playlist " + p.name + " failed prereqs");
                 }
-                /*else
-                    Utils.Log("Playlist " + p.name + " is disabled");*/
+                else
+                    Utils.Log("Playlist " + p.name + " is disabled");
             }
 
             // TODO: Select an appropriate playlist.
@@ -348,7 +355,7 @@ namespace SoundtrackEditor
                 return validPlaylists;
             else
             {
-                //Utils.Log("No valid playlists found!");
+                Utils.Log("No valid playlists found!");
                 return null;
             }
         }
@@ -603,7 +610,7 @@ namespace SoundtrackEditor
             }
         }
 
-        #endregion Playback management
+#endregion Playback management
 
     } // End of class.
 

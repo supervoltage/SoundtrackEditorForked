@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D02EF64D-C0E9-4A9E-B448-96D7719906E7}</ProjectGuid>
+    <ProjectGuid>{DE788C79-0615-4F41-9AF6-275525429FFC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SoundtrackEditor</RootNamespace>

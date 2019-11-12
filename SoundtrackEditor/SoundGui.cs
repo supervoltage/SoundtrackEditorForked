@@ -426,6 +426,16 @@ NullReferenceException: Object reference not set to an instance of an object
         /// <param name="windowID"></param>
         public void PlaylistGui(int windowID)
         {
+            if (SoundtrackEditor.Instance == null)
+            {
+                Debug.Log("PlayListGui, SoundtrackEditor.Instance is null");
+                return;
+            }
+            if (SoundtrackEditor.Instance.Playlists == null)
+            {
+                Debug.Log("PlayListGui, SoundtrackEditor.Instance.Playlists is null");
+                return;
+            }
             _playlistScrollPosition = GUILayout.BeginScrollView(_playlistScrollPosition, GUILayout.MinHeight(Screen.height / 1.25f));
 
             SoundtrackEditor sted = SoundtrackEditor.Instance;
@@ -445,7 +455,7 @@ NullReferenceException: Object reference not set to an instance of an object
 
                 string label;
                 if (sted.CurrentPlaylist == playlists[i])
-                    label = string.Format("<b>{0} ►</b>", playlistName);
+                    label = string.Format("<b>{0} ►</b>", playlistName); 
                 else if (sted.ActivePlaylists.Contains(playlists[i]))
                     label = string.Format("<b>{0} ☑</b>", playlistName);
                 else

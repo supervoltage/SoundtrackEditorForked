@@ -1,0 +1,4 @@
+
+4.6.1 (unreleased)
+	Fixed node value being saved in Persisor.cs, line 457, was saving the vesselState as a vesselSituation
+	Fixed a nullref when entering the editor, nullref was becuase constructionPlaylist was empty, and it appears that the game code is assuming there is always a playlist
