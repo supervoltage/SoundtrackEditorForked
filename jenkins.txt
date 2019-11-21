@@ -54,10 +54,10 @@
 # Special case if files are in the GameData directory itself
 # Special Case:    7:GameData
 
-9:Release/Licenses
-9:Release/Music
-9:Release/Playlists
-9:Release/KSP_x64_Data
+9:Licenses
+9:Music
+9:Playlists
+9:KSP_x64_Data
 
 # 8: AdditionalMods to include
 #8:ConnectedLivingSpace
