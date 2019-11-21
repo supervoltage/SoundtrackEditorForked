@@ -4,12 +4,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using ToolbarControl_NS;
+using ClickThroughFix;
 
 namespace SoundtrackEditor
-{
+{    
+    [KSPAddon(KSPAddon.Startup.MainMenu, true)]
+    public class RegisterToolbar : MonoBehaviour
+    {
+        void Start()
+        {
+            ToolbarControl.RegisterMod(GuiManager.MODID, GuiManager.MODNAME);
+        }
+    }
+
+
     [KSPAddon(KSPAddon.Startup.Instantly, true)]
     public class GuiManager : MonoBehaviour
-    {// ☰ ∞ ■ ► ▮▮
+    {
+        // ☰ ∞ ■ ► ▮▮
         // GUI window location and sizes.
         protected Rect mainWindowPos = new Rect(Screen.width / 10, Screen.height / 20f, 400f, 10f);
         protected Rect playbackWindowPos = new Rect((Screen.width / 2) - 115, Screen.height / 10, 230f, 10f);
@@ -27,9 +40,10 @@ namespace SoundtrackEditor
         private bool _editorGuiVisible = false;
 
         // Addon toolbar
-        private static string _appImageFile = "SoundtrackEditor/Images/sted";
+        private static string _appImageFile = "SoundtrackEditor/PluginData/Images/sted";
         internal bool Tooltip = false;
-        private static ApplicationLauncherButton appButton = null;
+        //private static ApplicationLauncherButton appButton = null;
+        private static ToolbarControl toolbarControl;
 
         private string _previousSeekPosition = string.Empty; // Last seek position of the audio player's seek control.
         private bool _muted = false;
@@ -51,24 +65,58 @@ namespace SoundtrackEditor
         public void Start()
         {
             DontDestroyOnLoad(gameObject); // Survive hitting the main menu for the first time.
-            GameEvents.onGUIApplicationLauncherReady.Add(OnAppLauncherReady);
-            GameEvents.onGUIApplicationLauncherDestroyed.Add(OnAppLauncherDestroyed);
+            //GameEvents.onGUIApplicationLauncherReady.Add(OnAppLauncherReady);
+            //GameEvents.onGUIApplicationLauncherDestroyed.Add(OnAppLauncherDestroyed);
+            CreateToolbarButton();
             SetUpDbPlayer();
             _audioFileList = AudioLoader.GetAvailableFiles();
         }
 
+        public const string MODID = "STE_NS";
+        public const string MODNAME = "Sound Track Editor";
         /// <summary>
         /// Addon button (toolbar on the right) ready(?).
         /// </summary>
-        public void OnAppLauncherReady()
+        public void CreateToolbarButton()
         {
-            if (HighLogic.LoadedScene == GameScenes.SPACECENTER && appButton == null)
+            Debug.Log("OnAppLauncherReady");
+            //if (HighLogic.LoadedScene == GameScenes.SPACECENTER && toolbarControl == null)
             {
-                appButton = ApplicationLauncher.Instance.AddModApplication(OpenGuiAppLauncher, CloseGuiAppLauncher, null, null, null, null, ApplicationLauncher.AppScenes.ALWAYS,
-                    GameDatabase.Instance.GetTexture(_appImageFile, false));
+                //appButton = ApplicationLauncher.Instance.AddModApplication(OpenGuiAppLauncher, CloseGuiAppLauncher, null, null, null, null, ApplicationLauncher.AppScenes.ALWAYS,
+                //    GameDatabase.Instance.GetTexture(_appImageFile, false));
+
+                toolbarControl = this.gameObject.AddComponent<ToolbarControl>();
+                toolbarControl.AddToAllToolbars(null, null,//KCT_GUI.ClickOn, KCT_GUI.ClickOff,
+                    null, null, /* KCT_GUI.onHoverOn, KCT_GUI.onHoverOff, */ null, null,
+                    ApplicationLauncher.AppScenes.FLIGHT | ApplicationLauncher.AppScenes.MAPVIEW | ApplicationLauncher.AppScenes.SPACECENTER | ApplicationLauncher.AppScenes.SPH | ApplicationLauncher.AppScenes.TRACKSTATION | ApplicationLauncher.AppScenes.VAB,
+                    MODID,
+                    "MainButton",
+                    //"KerbalConstructionTime/PluginData/Icons/KCT_on-38",
+                    //"KerbalConstructionTime/PluginData/Icons/KCT_off-38",
+                    //"KerbalConstructionTime/PluginData/Icons/KCT_on-24",
+                    //"KerbalConstructionTime/PluginData/Icons/KCT_off-24",
+                    _appImageFile,
+                    _appImageFile,
+                    _appImageFile,
+                    _appImageFile,
+                    MODNAME
+                    );
+
+                toolbarControl.AddLeftRightClickCallbacks(ClickToggle, onRightClick);
+
+
             }
         }
 
+        void ClickToggle()
+        {
+            _playbackControlsVisible = !_playbackControlsVisible;
+        }
+        void onRightClick()
+        {
+            _mainWindowVisible = !_mainWindowVisible;
+        }
+#if false
         /// <summary>
         /// Addon button (toolbar on the right) destroyed.
         /// </summary>
@@ -78,6 +126,15 @@ namespace SoundtrackEditor
             {
                 CloseGuiAppLauncher();
                 ApplicationLauncher.Instance.RemoveApplication(appButton);
+            }
+        }
+#endif
+        public void OnDestroy()//more toolbar stuff
+        {
+            if (toolbarControl != null)
+            {
+                toolbarControl.OnDestroy();
+                Destroy(toolbarControl);
             }
         }
 
@@ -103,24 +160,24 @@ namespace SoundtrackEditor
         public void OnGUI()
         {
             /*GUI.skin = HighLogic.Skin;
-            windowPos = GUILayout.Window(-5236628, windowPos, mainGUI, "Soundtrack Editor", GUILayout.Width(250), GUILayout.Height(50));*/
+            windowPos = ClickThruBlocker.GUILayoutWindow(-5236628, windowPos, mainGUI, "Soundtrack Editor", GUILayout.Width(250), GUILayout.Height(50));*/
             GUI.skin = HighLogic.Skin;
             if (!_allUIHidden)
             {
                 if (_mainWindowVisible)
-                    mainWindowPos = GUILayout.Window(GetInstanceID(), mainWindowPos, MainGui, "Soundtrack Editor");
+                    mainWindowPos = ClickThruBlocker.GUILayoutWindow(GetInstanceID(), mainWindowPos, MainGui, "Soundtrack Editor");
                 if (_playbackControlsVisible)
-                    playbackWindowPos = GUILayout.Window(GetInstanceID() + 1, playbackWindowPos, PlaybackGui, "Player");
+                    playbackWindowPos = ClickThruBlocker.GUILayoutWindow(GetInstanceID() + 1, playbackWindowPos, PlaybackGui, "Player");
                 if (_playlistGuiVisible)
-                    playlistWindowPos = GUILayout.Window(GetInstanceID() + 2, playlistWindowPos, PlaylistGui, "Playlists");
+                    playlistWindowPos = ClickThruBlocker.GUILayoutWindow(GetInstanceID() + 2, playlistWindowPos, PlaylistGui, "Playlists");
                 if (_audioPreviewGuiVisible)
-                    audioPreviewWindowPos = GUILayout.Window(GetInstanceID() + 3, audioPreviewWindowPos, AudioPreviewGui, "Audio Preview");
+                    audioPreviewWindowPos = ClickThruBlocker.GUILayoutWindow(GetInstanceID() + 3, audioPreviewWindowPos, AudioPreviewGui, "Audio Preview");
                 if (_editorGuiVisible)
-                    editorWindowPos = GUILayout.Window(GetInstanceID() + 4, editorWindowPos, EditorGui, "Playlist Editor");
+                    editorWindowPos = ClickThruBlocker.GUILayoutWindow(GetInstanceID() + 4, editorWindowPos, EditorGui, "Playlist Editor");
             }
         }
 
-        #endregion KSP Events
+#endregion KSP Events
 
         /// <summary>
         /// Creates an AudioSource for use in previewing sound effects.
@@ -134,7 +191,7 @@ namespace SoundtrackEditor
             PreviewSpeaker.loop = false;
             PreviewSpeaker.volume = GameSettings.MUSIC_VOLUME;
         }
-
+#if false
         private void OpenGuiAppLauncher()
         {
             _mainWindowVisible = true;
@@ -144,7 +201,7 @@ namespace SoundtrackEditor
         {
             _mainWindowVisible = false;
         }
-
+#endif
         private void MainGui(int windowID)
         {
             SoundtrackEditor sted = SoundtrackEditor.Instance;
@@ -455,7 +512,7 @@ NullReferenceException: Object reference not set to an instance of an object
 
                 string label;
                 if (sted.CurrentPlaylist == playlists[i])
-                    label = string.Format("<b>{0} ►</b>", playlistName); 
+                    label = string.Format("<b>{0} ►</b>", playlistName);
                 else if (sted.ActivePlaylists.Contains(playlists[i]))
                     label = string.Format("<b>{0} ☑</b>", playlistName);
                 else

@@ -34,6 +34,11 @@
     </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AssemblyVersion-173.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AssemblyVersion-173.tt</DependentUpon>
+    </Compile>
     <Compile Include="AudioLoader.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="EventManager.cs" />
@@ -55,12 +60,30 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>R:\KSP_1.7.3_dev\KSP_x64_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="ClickThroughBlocker">
+      <HintPath>R:\KSP_1.7.3_dev\GameData\000_ClickThroughBlocker\Plugins\ClickThroughBlocker.dll</HintPath>
+    </Reference>
+    <Reference Include="KSP_Log">
+      <HintPath>R:\KSP_1.7.3_dev\GameData\SpaceTuxLibrary\Plugins\KSP_Log.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
+    <Reference Include="ToolbarControl">
+      <HintPath>R:\KSP_1.7.3_dev\GameData\001_ToolbarControl\Plugins\ToolbarControl.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>R:\KSP_1.7.3_dev\KSP_x64_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AssemblyVersion-173.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AssemblyVersion-173.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
