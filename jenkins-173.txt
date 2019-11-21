@@ -57,6 +57,7 @@
 7:Licenses
 7:Music
 7:Playlists
+7:KSP_x64_Data
 
 # 8: AdditionalMods to include
 #8:ConnectedLivingSpace
