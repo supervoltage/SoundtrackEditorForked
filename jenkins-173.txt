@@ -31,13 +31,13 @@
 1a:Release
 
 # 1:GAMEDIR, VERSIONFILE [, GITHUBREPO ]
-1:SoundtrackEditor, SoundtrackEditor-173.version, SoundtrackEditor
+1:SoundtrackEditor, SoundtrackEditor.173.version, SoundtrackEditor
 
 # 2:PROJNAME, PROJFILE, VERSIONFILE, PLUGINSFOLDER
-2:SoundtrackEditor,SoundtrackEditor/SoundtrackEditor-173.csproj,SoundtrackEditor-173.version,GameData/SoundtrackEditor/Plugins
+2:SoundtrackEditor,SoundtrackEditor/SoundtrackEditor-173.csproj,SoundtrackEditor.173.version,GameData/SoundtrackEditor/Plugins
 
 # 3:SOURCEFILE, DESTDIR
-3:SoundtrackEditor-173.version,GameData/SoundtrackEditor
+3:SoundtrackEditor.173.version,GameData/SoundtrackEditor
 #3:LICENSE.md,GameData/KerbalHotSeat
 #3:README.md,GameData/KerbalHotSeat
 
