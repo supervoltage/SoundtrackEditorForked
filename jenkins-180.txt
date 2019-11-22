@@ -31,7 +31,7 @@
 1a:Release
 
 # 1:GAMEDIR, VERSIONFILE [, GITHUBREPO ]
-1:SoundtrackEditor, SoundtrackEditor.version
+1:SoundtrackEditor, SoundtrackEditor.version, SoundtrackEditor
 
 # 2:PROJNAME, PROJFILE, VERSIONFILE, PLUGINSFOLDER
 2:SoundtrackEditor,SoundtrackEditor/SoundtrackEditor.csproj,SoundtrackEditor.version,GameData/SoundtrackEditor/Plugins
