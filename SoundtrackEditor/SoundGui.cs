@@ -497,13 +497,12 @@ NullReferenceException: Object reference not set to an instance of an object
 
             SoundtrackEditor sted = SoundtrackEditor.Instance;
             List<Playlist> playlists = sted.Playlists;
-
             for (int i = 0; i < playlists.Count; i++)
             {
                 string playlistName = playlists[i].name;
 
                 GUILayout.BeginHorizontal();
-
+                
                 if (!_expandedPlaylists.ContainsKey(playlistName))
                     _expandedPlaylists.Add(playlistName, false);
                 bool isExpanded = _expandedPlaylists[playlistName];
@@ -512,11 +511,22 @@ NullReferenceException: Object reference not set to an instance of an object
 
                 string label;
                 if (sted.CurrentPlaylist == playlists[i])
+                {
                     label = string.Format("<b>{0} ►</b>", playlistName);
-                else if (sted.ActivePlaylists.Contains(playlists[i]))
-                    label = string.Format("<b>{0} ☑</b>", playlistName);
+                }
                 else
-                    label = string.Format("<b>{0}</b>", playlistName);
+                {;
+                    if (sted.ActivePlaylists != null && sted.ActivePlaylists.Contains(playlists[i]))
+                    {
+                        label = string.Format("<b>{0} ☑</b>", playlistName);
+                    }
+                    else
+                    {
+                        label = string.Format("<b>{0}</b>", playlistName);
+                    }
+                }
+
+                Debug.Log("PlaylistGui 9");
                 GUILayout.Label(label);
 
                 GUILayout.FlexibleSpace();
@@ -543,11 +553,14 @@ NullReferenceException: Object reference not set to an instance of an object
                     _minAltitudeText = playlists[i].playWhen.minAltitude == float.MinValue ? "" : playlists[i].playWhen.minAltitude.ToString();
                 }
                 GUILayout.EndHorizontal();
+                Debug.Log("PlaylistGui 10");
 
                 if (_expandedPlaylists[playlistName])
                 {
                     for (int j = 0; j < playlists[i].tracks.Count; j++)
                     {
+                        Debug.Log("PlaylistGui 11, j: " + j);
+
                         string prefix =
                             sted.CurrentPlaylist != null && sted.CurrentPlaylist.name == playlists[i].name &&
                             sted.CurrentClip != null && sted.CurrentClip.name == playlists[i].tracks[j] ?
