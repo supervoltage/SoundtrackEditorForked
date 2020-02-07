@@ -34,17 +34,17 @@
 1:SoundtrackEditorForked, SoundtrackEditorForked.version, SoundtrackEditorForked
 
 # 2:PROJNAME, PROJFILE, VERSIONFILE, PLUGINSFOLDER
-2:SoundtrackEditorForked,SoundtrackEditorForked/SoundtrackEditorForked.csproj,SoundtrackEditorForked.version,Release/GameData/SoundtrackEditorForked/Plugins
+2:SoundtrackEditorForked,SoundtrackEditorForked/SoundtrackEditorForked.csproj,SoundtrackEditorForked.version,GameData/SoundtrackEditorForked/Plugins
 
 # 3:SOURCEFILE, DESTDIR
-3:SoundtrackEditorForked.version,Release/GameData/SoundtrackEditorForked
-3:ChangeLog.txt,Release/GameData/SoundtrackEditorForked
+3:SoundtrackEditorForked.version,GameData/SoundtrackEditorForked
+3:ChangeLog.txt,GameData/SoundtrackEditorForked
 
 
-9:Release/Licenses
-9:Release/Music
-9:Release/Playlists
-9:Release/KSP_x64_Data
+9:Licenses
+9:Music
+9:Playlists
+9:KSP_x64_Data
 
 #
 # End of file
