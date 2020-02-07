@@ -1,6 +1,7 @@
 Changelog
 
-4.6.1.2
+4.6.1.2 for KSP 1.7.3
+4.7.1.2 for KSP 1.8.x
 	Fixed button being white
 	added InstallChecker
 	Added KSP_Data (needed for Linux/OSX)
