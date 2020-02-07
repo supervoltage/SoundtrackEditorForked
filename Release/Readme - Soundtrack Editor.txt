@@ -1,9 +1,10 @@
 -------------------------------------------------------------
  Soundtrack Editor
- Author:    pizzaoverhead
- Version:   4.3
- Released:  2017-03-01
- KSP:       v1.2.2
+ Original Author:    pizzaoverhead
+ Forked by: Linuxgurugamer
+ Version:   4.6.1
+ Released:  2020-04-07
+ KSP:       v1.7.3 & 1.8.s
 
  Thread:    http://forum.kerbalspaceprogram.com/threads/52896
  Licence:   GNU v2, http://www.gnu.org/licenses/gpl-2.0.html
@@ -57,57 +58,3 @@ On the SHore
 Peaceful Desolation
 The Other Side of the Door
 
-
-Version history
----------------
-4.3 (2017-03-01)
-- Added text for the current value of editable selections in the Playlist Editor.
-- Fixed Mission control ambience playlist's track.
-- Fixed playlists only activating on leaving the scene for the Astronaut Complex, Mission Control and Research & Development scenes.
-- Added missing AdminFacility psuedo-scene.
-- Removed empty entries from the persistor for preloadTime, playNext, playBefore, PlayAfter and minVelocity/Altitude values.
-- Fixed error on seeking to the end of a clip.
-- Fixed clicking "Cancel" on the Edit Playlist entries for In Atmosphere, Time Of Day, Scene, Situation and Camera Mode changing their values.
-- Fixed the Scene picker "Any" toggle not being able to deselect all entries.
-- Positioned Cancel buttons constantly to the right.
-- Fixed unexpected behaviour when track length is less than the set preload time.
-
-4.2 (2017-02-28)
-- Fixed unloaded tracks not being loaded correctly.
-- Added warning message for failing to find a requested audio track.
-- Removed unneeded log statements.
-- Fixed error on seeking to the end of a file.
-
-4.1 (2017-02-25)
-- Support for latest KSP version.
-- Fixed load failure for MP3s with no ID3 tags.
-
-4.0 (2016-08-19)
-- Advanced soundtrack management engine allows you to specify conditions that different soundtracks should play in, such as underwater, during reentry or at KSC during the night.
-- No more editing text files! Full-featured GUI for creating and organising playlists.
-- Audio player: See the name of the current track, skip ones you don't like, pause the sound or adjust the volume.
-- Audio preview system: Listen to all the music and sound effects included in stock KSP, including hidden and unused sounds.
-- Application launcher integration.
-- KSC night-time crickets.
-
-3.0 beta
-- Completely rewritten playback management, playlists and memory management.
-- Dynamic loading of tracks: Only the current track needs to be in memory.
-- Environment-aware playlists: Have a specific track play when you go supersonic or splash down.
-- Looping and shuffling.
-- Track preloading.
-
-2.1a (2014-08-08)
-- Added x64 option with alternate folder layout.
-- Added support for the KSP Add-on Version Checker.
-
-2.1 (2014-01-20)
-- Added the "none" option to disable music for a specific scene, e.g. menuTheme = none
-- Fixed directory separators on non-Windows systems.
-- Removed debug messages.
-
-2.0 (2014-01-16)
-- Added support for MP3 tracks.
-
-1.0 (2014-01-11)
-- Initial release.

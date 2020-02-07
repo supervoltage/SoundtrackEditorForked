@@ -1,22 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2005
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundtrackEditor", "SoundtrackEditor\SoundtrackEditor.csproj", "{D02EF64D-C0E9-4A9E-B448-96D7719906E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundtrackEditorForked", "SoundtrackEditorForked\SoundtrackEditorForked.csproj", "{D02EF64D-C0E9-4A9E-B448-96D7719906E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundtrackEditor-173", "SoundtrackEditor\SoundtrackEditor-173.csproj", "{DE788C79-0615-4F41-9AF6-275525429FFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundtrackEditorForked-173", "SoundtrackEditorForked\SoundtrackEditorForked-173.csproj", "{DE788C79-0615-4F41-9AF6-275525429FFC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AAE97952-E274-4B72-AEAF-DAFD15241495}"
 	ProjectSection(SolutionItems) = preProject
 		buildRelease.bat = buildRelease.bat
 		ChangeLog.txt = ChangeLog.txt
 		deploy.bat = deploy.bat
-		jenkins-173.txt = jenkins-173.txt
 		jenkins-180.txt = jenkins-180.txt
+		nojenkins-173.txt = nojenkins-173.txt
 		README.md = README.md
-		SoundtrackEditor.173.version = SoundtrackEditor.173.version
-		SoundtrackEditor.version = SoundtrackEditor.version
+		SoundtrackEditorForked.173.version = SoundtrackEditorForked.173.version
+		SoundtrackEditorForked.version = SoundtrackEditorForked.version
 	EndProjectSection
 EndProject
 Global

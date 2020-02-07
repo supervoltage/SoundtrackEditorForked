@@ -31,24 +31,13 @@
 1a:Release
 
 # 1:GAMEDIR, VERSIONFILE [, GITHUBREPO ]
-1:SoundtrackEditor, SoundtrackEditor.173.version, SoundtrackEditor
+1:SoundtrackEditorForked, SoundtrackEditorForked.173.version, SoundtrackEditorForked
 
 # 2:PROJNAME, PROJFILE, VERSIONFILE, PLUGINSFOLDER
-2:SoundtrackEditor,SoundtrackEditor/SoundtrackEditor-173.csproj,SoundtrackEditor.173.version,GameData/SoundtrackEditor/Plugins
+2:SoundtrackEditorForked,SoundtrackEditorForked/SoundtrackEditorForked-173.csproj,SoundtrackEditorForked.173.version,GameData/SoundtrackEditorForked/Plugins
 
 # 3:SOURCEFILE, DESTDIR
-3:SoundtrackEditor.173.version,GameData/SoundtrackEditor
-#3:LICENSE.md,GameData/KerbalHotSeat
-#3:README.md,GameData/KerbalHotSeat
-
-# 4:SOURCDIR, DESTDIR
-#4:Textures,GameData/ManeuverQueue/Textures
-
-# 5:ModuleManager
-# 5:ModuleManager
-
-# 6:mod_id
-#6:1272
+3:SoundtrackEditorForked.173.version,GameData/SoundtrackEditorForked
 
 # 7: AdditionalFolders in the GameData, 1 per line
 # Special case if files are in the GameData directory itself
