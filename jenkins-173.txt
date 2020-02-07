@@ -47,6 +47,7 @@
 9:Music
 9:Playlists
 9:KSP_x64_Data
+9:KSP_Data
 
 # 8: AdditionalMods to include
 #8:ConnectedLivingSpace
