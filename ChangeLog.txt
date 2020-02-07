@@ -3,6 +3,7 @@ Changelog
 4.6.1.2
 	Fixed button being white
 	added InstallChecker
+	Added KSP_Data (needed for Linux/OSX)
 
 4.6.1.1
 	Updated .version files with correct Spacedock URL
