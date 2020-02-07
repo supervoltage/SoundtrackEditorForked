@@ -1,12 +1,12 @@
 {
 	"NAME":"Soundtrack Editor Forked",
 	"URL":"http://ksp.spacetux.net/avc/SoundtrackEditorForked",
-	"DOWNLOAD":"http://spacedock.info/mod/944",
+	"DOWNLOAD":"http://spacedock.info/mod/2322",
 	"VERSION":{
 		"MAJOR":4,
 		"MINOR":6,
 		"PATCH":1,
-		"BUILD":0
+		"BUILD":1
 	},
     "KSP_VERSION_MIN":{
         "MAJOR":1,

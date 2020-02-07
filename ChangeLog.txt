@@ -1,5 +1,8 @@
 Changelog
 
+4.6.1.1
+	Updated .version files with correct Spacedock URL
+
 4.6.1 
 	Fixed node value being saved in Persisor.cs, line 457, was saving the vesselState as a vesselSituation
 	Fixed a nullref when entering the editor, nullref was because constructionPlaylist was empty, and it appears that the game code is assuming there is always a playlist
@@ -16,6 +19,7 @@ Changelog
 	In the event of an eventual adoption, the version files will need to be updated
 	with the correct URL and Download links
 	Fixed Nullref in SoundGui.cs when sted.ActivePlaylists was null
+	Merged old Version list into this file
 
 4.3 (2017-03-01)
 - Added text for the current value of editable selections in the Playlist Editor.
