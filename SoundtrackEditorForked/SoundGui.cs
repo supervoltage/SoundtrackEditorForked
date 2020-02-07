@@ -40,7 +40,7 @@ namespace SoundtrackEditor
         private bool _editorGuiVisible = false;
 
         // Addon toolbar
-        private static string _appImageFile = "SoundtrackEditor/PluginData/Images/sted";
+        private static string _appImageFile = "SoundtrackEditorForked/PluginData/Images/sted";
         internal bool Tooltip = false;
         //private static ApplicationLauncherButton appButton = null;
         private static ToolbarControl toolbarControl;

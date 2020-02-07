@@ -8,9 +8,9 @@ rem VERSIONFILE is the name of the version file, usually the same as GAMEDATA,
 rem    but not always
 
 set H=%KSPDIR%
-set GAMEDIR=SoundtrackEditor
-set RELEASEDIR="Release"
-set GAMEDATA="%RELEASEDIR%/GameData"
+set GAMEDIR=SoundtrackEditorForked
+set RELEASEDIR=Release
+set GAMEDATA=%RELEASEDIR%/GameData
 set VERSIONFILE=%GAMEDIR%.version
 
 copy /Y "%1%2" "%GAMEDATA%\%GAMEDIR%\Plugins"

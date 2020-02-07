@@ -1,5 +1,9 @@
 Changelog
 
+4.6.1.2
+	Fixed button being white
+	added InstallChecker
+
 4.6.1.1
 	Updated .version files with correct Spacedock URL
 
@@ -15,9 +19,6 @@ Changelog
 		Toolbarcontroller
 		SpacetuxLibraries
 
-	Due to the return of @pizzaoverhead, this is not being released
-	In the event of an eventual adoption, the version files will need to be updated
-	with the correct URL and Download links
 	Fixed Nullref in SoundGui.cs when sted.ActivePlaylists was null
 	Merged old Version list into this file
 
