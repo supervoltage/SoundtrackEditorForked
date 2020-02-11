@@ -1,5 +1,9 @@
 Changelog
 
+4.6.1.3 for KSP 1.7.3
+4.7.1.3 for KSP 1.8.x
+	Restored missing toolbar button
+
 4.6.1.2 for KSP 1.7.3
 4.7.1.2 for KSP 1.8.x
 	Fixed button being white
