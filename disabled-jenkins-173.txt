@@ -38,6 +38,7 @@
 
 # 3:SOURCEFILE, DESTDIR
 3:SoundtrackEditorForked.173.version,GameData/SoundtrackEditorForked
+3:ChangeLog.txt,GameData/SoundtrackEditorForked
 
 # 7: AdditionalFolders in the GameData, 1 per line
 # Special case if files are in the GameData directory itself

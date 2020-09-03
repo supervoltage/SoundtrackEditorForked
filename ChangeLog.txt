@@ -1,5 +1,8 @@
 Changelog
 
+4.7.1.4
+	Rebuild to fix packaging issue for 1.8
+
 4.6.1.3 for KSP 1.7.3
 4.7.1.3 for KSP 1.8.x
 	Restored missing toolbar button
