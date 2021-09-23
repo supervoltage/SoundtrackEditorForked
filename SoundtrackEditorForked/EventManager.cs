@@ -93,6 +93,8 @@ namespace SoundtrackEditor
         // State: Active, Inactive, Dead
         public bool MonitorVesselState { get; set; }
 
+        public bool MonitorVesselType { get; set; }
+
         public void TrackEventsForPlaylist(Playlist p)
         {
             if (p.pauseOnGamePause == true)
@@ -127,6 +129,8 @@ namespace SoundtrackEditor
                 AddMinVesselDistance(p.playWhen.minVesselDistance);
             if (p.playWhen.vesselState != Enums.VesselState.Any && p.playWhen.vesselState != 0)
                 MonitorVesselState = true;
+            if (p.playWhen.vesselType != Enums.CustomVesselType.Any && p.playWhen.vesselType != 0)
+                MonitorVesselType = true;
         }
 
         public static EventManager Instance { get; private set; }
@@ -155,6 +159,7 @@ namespace SoundtrackEditor
         private double _previousObtVel = 0;
         private double _previousAlt = 0;
         private Enums.VesselState _previousVesselState = 0;
+        private Enums.CustomVesselType _previousVesselType = 0;
         private void UpdateSituation()
         {
             bool changed = false;
@@ -269,6 +274,15 @@ namespace SoundtrackEditor
                     {
                         Utils.Log("Vessel state changed");
                         _previousVesselState = Enums.ConvertVesselState(v.state);
+                        changed = true;
+                    }
+                }
+                if (MonitorVesselType)
+                {
+                    if (_previousVesselType != Enums.VesselTypetoCustomVesselType(v.vesselType))
+                    {
+                        Utils.Log("Vessel type changed");
+                        _previousVesselType = Enums.VesselTypetoCustomVesselType(v.vesselType);
                         changed = true;
                     }
                 }
@@ -453,9 +467,9 @@ namespace SoundtrackEditor
             GameEvents.onVesselRecovered.Add(onVesselRecovered);
             GameEvents.onVesselRecoveryProcessing.Add(onVesselRecoveryProcessing);
             GameEvents.OnVesselRecoveryRequested.Add(OnVesselRecoveryRequested);
-			onVesselReferenceTransformSwitch
+			onVesselReferenceTransformSwitch*/
             GameEvents.onVesselRename.Add(onVesselRename);
-			onVesselResumeStaging
+			/*onVesselResumeStaging
             GameEvents.OnVesselRollout.Add(OnVesselRollout);*/
             GameEvents.onVesselSituationChange.Add(onVesselSituationChange);
             /*GameEvents.onVesselSOIChanged.Add(onVesselSOIChanged);
@@ -487,6 +501,13 @@ namespace SoundtrackEditor
             GameEvents.VesselSituation.onReturnFromSurface.Add(onReturnFromSurface);*/
         }
 
+        private void onVesselRename(GameEvents.HostedFromToAction<Vessel, string> data)
+        {
+            SoundtrackEditor.CurrentSituation.vesselType = Enums.VesselTypetoCustomVesselType(data.host.vesselType);
+            if (MonitorVesselType)
+                SoundtrackEditor.Instance.OnSituationChanged();
+        }
+
         /*private void onActiveJointNeedUpdate(Vessel v) { Utils.Log("#onActiveJointNeedUpdate"); }*/
         private void OnCameraChange(CameraManager.CameraMode cameraMode)
         {
@@ -498,6 +519,7 @@ namespace SoundtrackEditor
                 SoundtrackEditor.Instance.OnSituationChanged();
             }
         }
+
         /*private void onCollision(EventReport e) { Utils.Log("#onActiveJointNeedUpdate"); }
         private void onCrash(EventReport e) { Utils.Log("#onCrash"); }
         private void onCrashSplashdown(EventReport e) { Utils.Log("#onCrashSplashdown"); }

@@ -162,6 +162,10 @@ namespace SoundtrackEditor
                             {
                                 p.playWhen.vesselState = Enums.Parse<Enums.VesselState>(playWhen.GetValue("vesselState"));
                             }
+                            if (playWhen.HasValue("vesselType"))
+                            {
+                                p.playWhen.vesselType = Enums.Parse<Enums.CustomVesselType>(playWhen.GetValue("vesselType"));
+                            }
                         }
 
                         playlists.Add(p);
@@ -463,6 +467,8 @@ namespace SoundtrackEditor
                         preReq.AddValue("cameraMode", pl.playWhen.cameraMode.ToString().Replace(", ", " | "));
                     if (!string.IsNullOrEmpty(pl.playWhen.bodyName))
                         preReq.AddValue("bodyName", pl.playWhen.bodyName);
+                    if (pl.playWhen.vesselType != Enums.CustomVesselType.Any)
+                        preReq.AddValue("vesselType", pl.playWhen.vesselType);
                 }
 
                 settings.Save(_configSavePath);

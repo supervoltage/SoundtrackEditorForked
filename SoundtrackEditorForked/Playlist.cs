@@ -198,6 +198,7 @@ namespace SoundtrackEditor
             public float maxVesselDistance = float.MaxValue;
             public float minVesselDistance = 0f;
             public Enums.VesselState vesselState = Enums.VesselState.Any;
+            public Enums.CustomVesselType vesselType = Enums.CustomVesselType.Any;
 
             public Prerequisites() {}
             public Prerequisites(Prerequisites p)
@@ -216,6 +217,7 @@ namespace SoundtrackEditor
                 maxAltitude = p.maxAltitude;
                 minAltitude = p.minAltitude;
                 vesselState = p.vesselState;
+                vesselType = p.vesselType;
             }
 
             // TODO: Make sure any new fields are added to Equals, the CTOR and the persistor.
@@ -285,6 +287,7 @@ namespace SoundtrackEditor
                     "Camera mode:\t\t" + Enum.GetName(typeof(Enums.CameraModes), cameraMode) + "\r\n" +
                     "Body name:\t\t" + (bodyName.Length > 0 ? bodyName : "Any") + "\r\n" +
                     "Situation:\t" + SituationToText(situation) + "\r\n" +
+                    "Type:\t" + Enum.GetName(typeof(Enums.CustomVesselType), vesselType) +
                     "Max Orbital Velocity:\t" + (maxVelocityOrbital == float.MaxValue ? "None" : maxVelocityOrbital.ToString()) + "\r\n" +
                     "Min Orbital Velocity:\t" + (minVelocityOrbital == float.MinValue ? "None" : minVelocityOrbital.ToString()) + "\r\n" +
                     "Max Surface Velocity:\t" + (maxVelocitySurface == float.MaxValue ? "None" : maxVelocitySurface.ToString()) + "\r\n" +
@@ -292,6 +295,7 @@ namespace SoundtrackEditor
                     "Max Altitude:\t\t" + (maxAltitude == float.MaxValue ? "None" : maxAltitude.ToString()) + "\r\n" +
                     "Min Altitude:\t\t" + (minAltitude == float.MinValue ? "None" : minAltitude.ToString()) + "\r\n" +
                     "Vessel state:\t\t\t" + vesselState + "\r\n" +
+                    "Vessel type:\t\t\t" + vesselType + "\r\n" +
                     "In Atmosphere:\t\t" + inAtmosphere + "\r\n" + 
                     "Time Of Day:\t\t" + timeOfDay;
             }
@@ -316,7 +320,8 @@ namespace SoundtrackEditor
                     .Append("Surface velocity:\t\t").AppendLine(v.srf_velocity.magnitude.ToString())
                     .Append("Altitude:\t\t\t").AppendLine(v.altitude.ToString())
                     .Append("In Atmosphere:\t\t").AppendLine((v.atmDensity > 0).ToString())
-                    .Append("State:\t\t").AppendLine(v.state.ToString());
+                    .Append("State:\t\t").AppendLine(v.state.ToString())
+                    .Append("Type:\t\t").AppendLine(v.vesselType.ToString());
                 }
                 else
                     situationSB.AppendLine("Vessel:\t\t\tNo vessel");
@@ -366,6 +371,17 @@ namespace SoundtrackEditor
                 if ((v.situation & situation) != v.situation)
                 {
                     Utils.Log("Prereq failed: Expected situation " + situation + ", but was " + v.situation);
+                    return false;
+                }
+                return true;
+            }
+
+            public bool CheckVesselType(Vessel v)
+            {
+                Enums.CustomVesselType vt = Enums.VesselTypetoCustomVesselType(v.vesselType);
+                if ((vt & vesselType) != vt)
+                {
+                    Utils.Log("Prereq failed: Expected situation " + vesselType + ", but was " + vt);
                     return false;
                 }
                 return true;
@@ -444,6 +460,7 @@ namespace SoundtrackEditor
                     {
                         if (!CheckBodyName(v)) return false;
                         if (!CheckSituation(v)) return false;
+                        if (!CheckVesselType(v)) return false;
 
                         if (!CheckOrbitalVelocity(v)) return false;
                         if (!CheckSurfaceVelocity(v)) return false;
@@ -494,7 +511,8 @@ namespace SoundtrackEditor
                         (this.scene == p.scene) &&
                         (this.situation == p.situation) &&
                         (this.cameraMode == p.cameraMode) &&
-                        (this.bodyName.Equals(p.bodyName));
+                        (this.bodyName.Equals(p.bodyName)) &&
+                        (this.vesselType == p.vesselType);
                 //Playlist playAfter = null;
                 //Playlist playNext = null;
             }
@@ -521,7 +539,8 @@ namespace SoundtrackEditor
                         (this.scene == p.scene) &&
                         (this.situation == p.situation) &&
                         (this.cameraMode == p.cameraMode) &&
-                        (this.bodyName.Equals(p.bodyName));
+                        (this.bodyName.Equals(p.bodyName)) &&
+                        (this.vesselType == p.vesselType);
                 //Playlist playAfter = null;
                 //Playlist playNext = null;
             }
@@ -545,7 +564,8 @@ namespace SoundtrackEditor
                     M = scene,
                     N = situation,
                     O = cameraMode,
-                    P = bodyName
+                    P = bodyName,
+                    Q = vesselType
                 }.GetHashCode();
             }
             #endregion Equality operator
