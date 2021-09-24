@@ -11,6 +11,13 @@ namespace SoundtrackEditor
     public class AudioLoader
     {
         private List<string> unusedTracks = new List<string>();
+        private static List<string> file_list = new List<string>();
+        // private static List<string> file_list = Directory.GetFiles(Utils.MusicPath, "*", SearchOption.AllDirectories).ToList<string>();
+
+        static AudioLoader()
+        {
+            RefreshFileList();
+        }
 
         /// <summary>
         /// Loads an audio clip from disk or the game database.
@@ -29,23 +36,33 @@ namespace SoundtrackEditor
             // Ensure the Music directory exists.
             Directory.CreateDirectory(Utils.MusicPath);
 
-            foreach (string file in Directory.GetFiles(Utils.MusicPath, "*", SearchOption.AllDirectories))
+            /*float dir_list_creation_start = Time.realtimeSinceStartup * 1000;
+            List<string> file_list = Directory.GetFiles(Utils.MusicPath, "*", SearchOption.AllDirectories).ToList<string>();
+            float dir_list_creation_end = Time.realtimeSinceStartup * 1000
+            Utils.Log("Directory list creation time: " + (dir_list_creation_end - dir_list_creation_start) + "ms");
+            */
+
+            foreach (string file in file_list)
             {
                 if (name.Equals(Path.GetFileNameWithoutExtension(file)))
                 {
                     string ext = Path.GetExtension(file);
                     Utils.Log("Found " + name + ", with extension " + ext);
+                    AudioClip clip = null;
                     switch (ext.ToUpperInvariant())
                     {
                         case ".WAV":
                         case ".OGG":
-                            return LoadUnityAudioClip(ext.ToUpperInvariant(), file);
+                            clip = LoadUnityAudioClip(ext.ToUpperInvariant(), file);
+                            break;
                         case ".MP3":
-                            return LoadMp3Clip(file);
+                            clip = LoadMp3Clip(file);
+                            break;
                         default:
                             Utils.Log("Unknown extension found: " + ext);
                             break;
                     }
+                    return clip;
                 }
             }
             // Failed to find the clip in the music folder. Check the game database instead.
@@ -61,14 +78,21 @@ namespace SoundtrackEditor
             return databaseClip;
         }
 
+        public static void RefreshFileList()
+        {
+            // Ensure the Music directory exists
+            Directory.CreateDirectory(Utils.MusicPath);
+            int prev_file_count = file_list.Count();
+            file_list = Directory.GetFiles(Utils.MusicPath, "*", SearchOption.AllDirectories).ToList<string>();
+            int new_file_count = file_list.Count();
+            Utils.Log("File list refreshed; old file count " + prev_file_count + ", new file count " + new_file_count);
+        }
+
         public static List<AudioFileInfo> GetAvailableFiles()
         {
             List<AudioFileInfo> files = new List<AudioFileInfo>();
 
-            // Ensure the Music directory exists.
-            Directory.CreateDirectory(Utils.MusicPath);
-
-            foreach (string file in Directory.GetFiles(Utils.MusicPath, "*", SearchOption.AllDirectories))
+            foreach (string file in file_list)
             {
                 AudioFileInfo fileInfo = new AudioFileInfo
                 {

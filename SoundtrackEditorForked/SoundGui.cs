@@ -205,6 +205,13 @@ namespace SoundtrackEditor
         private void MainGui(int windowID)
         {
             SoundtrackEditor sted = SoundtrackEditor.Instance;
+            if (GUILayout.Button("Refresh Tracklist"))
+            {
+                AudioLoader.RefreshFileList();
+                _audioFileList = AudioLoader.GetAvailableFiles();
+                // recreate AudioFile shite list
+                ScreenMessages.PostScreenMessage("Tracklist refreshed", 5.0F, ScreenMessageStyle.UPPER_CENTER);
+            }
 
             if (!Utils.LibMpg123Installed)
             {
