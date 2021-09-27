@@ -26,7 +26,7 @@ rem README is the readme file
 set GAMEDIR=SoundtrackEditorForked
 set GAMEDATA="GameData\"
 set VERSIONFILE=%GAMEDIR%.version
-set LICENSE=License.txt
+set LICENSE=
 set README=ReadMe.md
 
 set RELEASEDIR=d:\Users\jbb\release
@@ -65,10 +65,14 @@ echo Version:  %VERSION%
 
 
 rem Build the zip FILE
-cd %GAMEDATA%\..
+cd %GAMEDATA%\..\Release
 
 set FILE="%RELEASEDIR%\%GAMEDIR%-%VERSION%.zip"
 IF EXIST %FILE% del /F %FILE%
+
+pwd
+@echo on
+
 %ZIP% a -tzip %FILE% GameData
 
 pause
