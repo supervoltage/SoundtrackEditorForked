@@ -828,6 +828,7 @@ NullReferenceException: Object reference not set to an instance of an object
             CameraModePicker();
             _editingPlaylist.playWhen.bodyName = GuiUtils.editString("Body Name:", _editingPlaylist.playWhen.bodyName);
             VesselStatePicker();
+            VesselTypePicker();
             // TODO: "Clear" buttons.
 
             _maxSrfVelText = GuiUtils.editFloat("Max Surface Velocity (m/s):", _maxSrfVelText, out _editingPlaylist.playWhen.maxVelocitySurface, float.MaxValue);
@@ -1251,6 +1252,40 @@ NullReferenceException: Object reference not set to an instance of an object
             }
             else
                 _vesselStateExpanded = PickerGuiCollapsed("Vessel State", _editingPlaylist.playWhen.vesselState.ToString(), _vesselStateExpanded);
+        }        
+
+        private bool _vesselTypeExpanded = false;
+        private Enums.CustomVesselType _previousVesselType = Enums.CustomVesselType.Any;
+        private void VesselTypePicker()
+        {
+            if (_vesselTypeExpanded)
+            {
+                GUILayout.Label("<b>Vessel Type</b>");
+                GUILayout.BeginVertical();
+
+                foreach (var e in Enum.GetValues(typeof(Enums.CustomVesselType)))
+                {
+                    bool isSelected = (_editingPlaylist.playWhen.vesselType & (Enums.CustomVesselType)e) == (Enums.CustomVesselType)e;
+                    if (GUILayout.Toggle(isSelected, e.ToString()) != isSelected)
+                        _editingPlaylist.playWhen.vesselType = _editingPlaylist.playWhen.vesselType ^ (Enums.CustomVesselType)e;
+                }
+
+                // Footer
+                GUILayout.BeginHorizontal();
+                GUILayout.FlexibleSpace();
+                if (GUILayout.Button(" OK "))
+                    _vesselTypeExpanded = false;
+                if (GUILayout.Button("Cancel"))
+                {
+                    _vesselTypeExpanded = false;
+                    _editingPlaylist.playWhen.vesselType = _previousVesselType;
+                }
+                GUILayout.EndHorizontal();
+                GUILayout.Space(10);
+                GUILayout.EndVertical();
+            }
+            else
+                _vesselTypeExpanded = PickerGuiCollapsed("Vessel Type", _editingPlaylist.playWhen.vesselType.ToString(), _vesselTypeExpanded);
         }
 
         private bool _fadeEditorVisible = false;

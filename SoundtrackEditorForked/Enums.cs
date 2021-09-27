@@ -85,6 +85,57 @@ namespace SoundtrackEditor
         public static Vessel.Situations AnyVesselSituation = Vessel.Situations.DOCKED | Vessel.Situations.ESCAPING | Vessel.Situations.FLYING |
             Vessel.Situations.LANDED | Vessel.Situations.ORBITING | Vessel.Situations.PRELAUNCH | Vessel.Situations.SPLASHED | Vessel.Situations.SUB_ORBITAL;
 
+        // there is already an enum from the base game called VesselType but its values are not bitwise OR'able
+        // sadly we must reinvent the wheel a bit here
+        // the original list spans from decimal 0 to 16 for each item below
+        public enum CustomVesselType
+        {
+            Debris = 0x1,
+            SpaceObject = 0x2,
+            Unknown = 0x4,
+            Probe = 0x8,
+            Relay = 0x10,
+            Rover = 0x20,
+            Lander = 0x40,
+            Ship = 0x80,
+            Plane = 0x100,
+            Station = 0x200,
+            Base = 0x400,
+            EVA = 0x800,
+            Flag = 0x1000,
+            DeployedScienceController = 0x2000,
+            DeployedSciencePart = 0x4000,
+            DroppedPart = 0x8000,
+            DeployedGroundPart = 0x10000,
+            Any = Debris | SpaceObject | Unknown | Probe | Relay | Rover | Lander | Ship | Plane | Station | Base |
+                  EVA | Flag | DeployedScienceController | DeployedSciencePart | DroppedPart | DeployedGroundPart
+        }
+
+        public static CustomVesselType VesselTypetoCustomVesselType(VesselType vt)
+        {
+            switch(vt)
+            {
+                case VesselType.Debris:                     return CustomVesselType.Debris;
+                case VesselType.SpaceObject:                return CustomVesselType.SpaceObject;
+                case VesselType.Unknown:                    return CustomVesselType.Unknown;
+                case VesselType.Probe:                      return CustomVesselType.Probe;
+                case VesselType.Relay:                      return CustomVesselType.Relay;
+                case VesselType.Rover:                      return CustomVesselType.Rover;
+                case VesselType.Lander:                     return CustomVesselType.Lander;
+                case VesselType.Ship:                       return CustomVesselType.Ship;
+                case VesselType.Plane:                      return CustomVesselType.Plane;
+                case VesselType.Station:                    return CustomVesselType.Station;
+                case VesselType.Base:                       return CustomVesselType.Base;
+                case VesselType.EVA:                        return CustomVesselType.EVA;
+                case VesselType.Flag:                       return CustomVesselType.Flag;
+                case VesselType.DeployedScienceController:  return CustomVesselType.DeployedScienceController;
+                case VesselType.DeployedSciencePart:        return CustomVesselType.DeployedSciencePart;
+                case VesselType.DroppedPart:                return CustomVesselType.DroppedPart;
+                case VesselType.DeployedGroundPart:         return CustomVesselType.DeployedGroundPart;
+            }
+            return CustomVesselType.Any;
+        }
+        
         public enum Channel
         {
             Ship = 0,
