@@ -1,12 +1,16 @@
 Changelog
 
 4.7.1.5
+	Added AssemblyFileVersion
+	Updated version file for 1.12
+
 	Thanks to github user @supervoltage for this:
 		A new UI element called "Vessel Type" is added to the Playlist editor, just underneath the "Vessel State". Upon expanding this new UI element, a list of various vessel types is displayed to the user, including but not limited to: Ship, Rover, Plane, Probe, Relay etc. Selecting one or more items from this list will restrict the playlist to play only when those vessel types are met. A catch-all option called "Any" is located at the bottom to quickly select all vessel types. This allows users to create, for example, atmospheric playlists that are for either aircraft or rocket use, among a myriad of other possibilities when used in combination with other playlist criteria.
 
 		A hook into the Vessel.onVesselRename() method allows the playlist to immediately change when the vessel type changes in-game, say if the vessel is renamed via the "Rename Vessel" function, when the vessel splits into two distinct vessel types (for example, undocking a rover), or when switching to another nearby vessel using the square bracket [] keys.
 
-This new playlist criteria saves accordingly to existing playlist.cfg files, meaning users won't have to re-create their playlists either.
+		This new playlist criteria saves accordingly to existing playlist.cfg files, meaning users won't have to re-create their playlists either.
+
 4.7.1.4
 	Rebuild to fix packaging issue for 1.8
 
